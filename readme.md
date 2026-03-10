@@ -24,4 +24,5 @@ O sistema utiliza a API ViaCEP para preencher automaticamente o endereço a part
 
 ## Autor
 
-Projeto desenvolvido por Nicollas Kallel.
+Projeto desenvolvido por Caio Alves Silva
+
