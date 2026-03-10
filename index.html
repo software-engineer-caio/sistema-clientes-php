@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f1f1;
+            padding: 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: white;
+            display: inline-block;
+            text-align: left;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #ccc;
+            width: 350px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+        }
+        input[type="submit"] {
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 15px;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gerenciamento de Clientes</h1>
+
+
+    <form method="post" action="inserir.php">
+        <h2>Cadastrar Cliente</h2>
+
+        <h3>Dados Pessoais</h3>
+
+        <label>Nome completo:</label>
+        <input type="text" name="nome" required>
+
+        <label>CPF / CNPJ:</label>
+        <input type="text" name="cpf" required>
+
+        <label>Data de nascimento / fundação:</label>
+        <input type="date" name="nascimento" required>
+
+        <label>Gênero (opcional):</label>
+        <input type="text" name="genero">
+
+        <label>Estado civil (opcional):</label>
+        <input type="text" name="estadociv">
+
+        <label>Nacionalidade:</label>
+        <input type="text" name="nacionalidade" required>
+
+        <label>Profissão / Ocupação:</label>
+        <input type="text" name="profissao" required>
+
+        <h3>Contatos</h3>
+
+        <label>Telefone principal:</label>
+        <input type="text" name="celular" required>
+
+        <label>Telefone secundário:</label>
+        <input type="text" name="telefone">
+
+        <label>E-mail principal:</label>
+        <input type="email" name="email" required>
+
+        <label>E-mail alternativo:</label>
+        <input type="email" name="emailsec">
+
+        <h3>Endereço</h3>
+
+        <label>CEP:</label>
+        <input type="text" name="cep" id="cep">
+
+        <label>Rua:</label>
+        <input type="text" name="logradouro" id="logradouro">
+
+        <label>Número:</label>
+        <input type="text" name="numero">
+
+        <label>Complemento:</label>
+        <input type="text" name="complemento">
+
+        <label>Bairro:</label>
+        <input type="text" name="bairro" id="bairro">
+
+        <label>Cidade:</label>
+        <input type="text" name="cidade" id="cidade">
+
+        <label>Estado:</label>
+        <input type="text" name="estado" id="estado">
+
+        <label>País:</label>
+        <input type="text" name="pais" id="pais">
+
+        <input type="submit" value="Salvar Cliente">
+    </form>
+
+
+
+    <form method="post" action="deletar.php">
+        <h2>Excluir Cliente</h2>
+
+        <label>CPF / CNPJ do Cliente:</label>
+        <input type="text" name="cpf" required>
+
+        <input type="submit" value="Excluir">
+    </form>
+
+
+
+    <form method="post" action="atualizar.php">
+        <h2>Atualizar Cliente</h2>
+
+        <label>CPF / CNPJ do Cliente:</label>
+        <input type="text" name="cpf" required>
+
+        <label>Novo nome:</label>
+        <input type="text" name="nome">
+
+        <label>Novo e-mail:</label>
+        <input type="email" name="email">
+
+        <label>Novo telefone:</label>
+        <input type="text" name="telefone">
+
+        <input type="submit" value="Atualizar">
+    </form>
+
+
+    <form method="post" action="listar.php">
+        <h2>Listar Clientes</h2>
+        <input type="submit" value="Ver Lista Completa">
+    </form>
+
+
+
+    <h2>Buscar Cliente por Nome</h2>
+
+    <input type="text" id="search" placeholder="Digite o nome do cliente..." onkeyup="buscarClientes()">
+    <br><br>
+
+    <div id="resultado">Digite um nome para buscar...</div>
+
+       <script>
+        document.getElementById('cep').addEventListener('blur', function () {
+            let cep = this.value.replace(/\D/g, '');
+
+            if (cep.length === 8) {
+                fetch("https://viacep.com.br/ws/" + cep + "/json/")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('estado').value = data.uf;
+                            document.getElementById('pais').value = "Brasil";
+                        }
+                    });
+            }
+        });
+    </script>
+
+
+    <script>
+        function buscarClientes() {
+            const valor = document.getElementById("search").value.trim();
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "search.php?search=" + encodeURIComponent(valor), true);
+
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    try {
+                        const clientes = JSON.parse(this.responseText);
+                        let output = "<h3>Resultados da busca</h3><ul>";
+
+                        if (clientes.length === 0) {
+                            output += "<li>Nenhum cliente encontrado.</li>";
+                        } else {
+                            clientes.forEach(c => {
+                                output += `
+                                    <li>
+                                        <strong>${c.nome}</strong><br>
+                                        CPF: ${c.cpf}<br>
+                                        E-mail: ${c.email}<br>
+                                        Cidade: ${c.cidade}
+                                    </li>
+                                `;
+                            });
+                        }
+
+                        output += "</ul>";
+                        document.getElementById("resultado").innerHTML = output;
+
+                    } catch (e) {
+                        document.getElementById("resultado").innerHTML = "Erro ao processar resposta!";
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+    </script>
+
+</body>
+</html>
