@@ -3,230 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Clientes</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f1f1;
-            padding: 30px;
-            text-align: center;
-        }
-        h2 {
-            color: #333;
-        }
-        form {
-            background: white;
-            display: inline-block;
-            text-align: left;
-            padding: 25px;
-            margin-bottom: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px #ccc;
-            width: 350px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 6px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #aaa;
-        }
-        input[type="submit"] {
-            background: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            font-size: 15px;
-        }
-        input[type="submit"]:hover {
-            background: #0056b3;
-        }
-    </style>
+    <title>Gerenciamento de Funcionários</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <main class="container">
 
-    <h1>Gerenciamento de Clientes</h1>
+        <!-- Barra de abas -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="cadastrar">＋ Cadastrar</button>
+            <button class="tab-btn" data-tab="atualizar">✎ Atualizar</button>
+            <button class="tab-btn" data-tab="excluir">✕ Excluir</button>
+            <button class="tab-btn" data-tab="buscar">⌕ Buscar</button>
+            <button class="tab-btn" data-tab="listar">≡ Listar</button>
+        </nav>
 
+        <!-- Aba: Cadastrar -->
+        <section class="tab-panel active" id="tab-cadastrar">
+            <form method="post" action="inserir.php">
+                <h2 class="form-title">Cadastrar Funcionário</h2>
 
-    <form method="post" action="inserir.php">
-        <h2>Cadastrar Cliente</h2>
+                <div class="secao">Dados Pessoais</div>
+                <div class="form-grid">
 
-        <h3>Dados Pessoais</h3>
+                    <div class="campo cheio">
+                        <label>Nome completo <span class="obrigatorio">*</span></label>
+                        <input type="text" name="nome" required placeholder="Ex: João da Silva">
+                    </div>
 
-        <label>Nome completo:</label>
-        <input type="text" name="nome" required>
+                    <div class="campo">
+                        <label>CPF <span class="obrigatorio">*</span></label>
+                        <input type="text" name="cpf" placeholder="123.456.789-01" required>
+                    </div>
 
-        <label>CPF / CNPJ:</label>
-        <input type="text" name="cpf" required>
+                    <div class="campo">
+                        <label>Data de nascimento <span class="obrigatorio">*</span></label>
+                        <input type="date" name="nascimento" required>
+                    </div>
 
-        <label>Data de nascimento / fundação:</label>
-        <input type="date" name="nascimento" required>
+                    <div class="campo">
+                        <label>Gênero <span class="opcional">(opcional)</span></label>
+                        <select name="genero">
+                            <option value="">Selecione</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
 
-        <label>Gênero (opcional):</label>
-        <input type="text" name="genero">
+                    <div class="campo">
+                        <label>Estado civil <span class="opcional">(opcional)</span></label>
+                        <select name="estadociv">
+                            <option value="">Selecione</option>
+                            <option value="solteiro">Solteiro</option>
+                            <option value="casado">Casado</option>
+                            <option value="divorciado">Divorciado</option>
+                            <option value="viuvo">Viúvo</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
 
-        <label>Estado civil (opcional):</label>
-        <input type="text" name="estadociv">
+                    <div class="campo">
+                        <label>Nacionalidade <span class="obrigatorio">*</span></label>
+                        <input type="text" name="nacionalidade" required placeholder="Ex: Brasileiro">
+                    </div>
 
-        <label>Nacionalidade:</label>
-        <input type="text" name="nacionalidade" required>
+                    <div class="campo cheio">
+                        <label>Profissão <span class="obrigatorio">*</span></label>
+                        <select name="profissao" required>
+                            <option value="">Selecione</option>
+                            <option value="administrador_banco_dados">Administrador de Banco de Dados</option>
+                            <option value="administrador_redes">Administrador de Redes</option>
+                            <option value="administrador_sistemas">Administrador de Sistemas</option>
+                            <option value="analista_bi">Analista de BI</option>
+                            <option value="analista_dados">Analista de Dados</option>
+                            <option value="analista_estrategia_dados">Analista de Estratégia de Dados</option>
+                            <option value="analista_infraestrutura">Analista de Infraestrutura</option>
+                            <option value="analista_qualidade_software">Analista de Qualidade de Software</option>
+                            <option value="analista_seguranca_informacao">Analista de Segurança da Informação</option>
+                            <option value="analista_suporte_sistemas">Analista de Suporte de Sistemas</option>
+                            <option value="arquiteto_software">Arquiteto de Software</option>
+                            <option value="arquiteto_solucoes">Arquiteto de Soluções</option>
+                            <option value="cientista_dados">Cientista de Dados</option>
+                            <option value="coordenador_engenharia">Coordenador de Engenharia</option>
+                            <option value="desenvolvedor_backend">Desenvolvedor Back-End</option>
+                            <option value="desenvolvedor_frontend">Desenvolvedor Front-End</option>
+                            <option value="desenvolvedor_full_stack">Desenvolvedor Full Stack</option>
+                            <option value="desenvolvedor_mobile">Desenvolvedor Mobile</option>
+                            <option value="engenheiro_cloud">Engenheiro de Cloud</option>
+                            <option value="engenheiro_dados">Engenheiro de Dados</option>
+                            <option value="engenheiro_devops">Engenheiro DevOps</option>
+                            <option value="engenheiro_machine_learning">Engenheiro de Machine Learning</option>
+                            <option value="engenheiro_seguranca">Engenheiro de Segurança</option>
+                            <option value="engenheiro_software">Engenheiro de Software</option>
+                            <option value="especialista_big_data">Especialista em Big Data</option>
+                            <option value="especialista_ciberseguranca">Especialista em Cibersegurança</option>
+                            <option value="gerente_projetos_ti">Gerente de Projetos de TI</option>
+                            <option value="gerente_tecnologia">Gerente de Tecnologia</option>
+                            <option value="product_manager">Product Manager</option>
+                            <option value="product_owner">Product Owner</option>
+                            <option value="scrum_master">Scrum Master</option>
+                            <option value="tech_lead">Tech Lead</option>
+                        </select>
+                    </div>
 
-        <label>Profissão / Ocupação:</label>
-        <input type="text" name="profissao" required>
+                </div>
 
-        <h3>Contatos</h3>
+                <div class="secao">Contatos</div>
+                <div class="form-grid">
 
-        <label>Telefone principal:</label>
-        <input type="text" name="celular" required>
+                    <div class="campo">
+                        <label>Telefone principal <span class="obrigatorio">*</span></label>
+                        <input type="text" name="celular" placeholder="(11) 99999-9999" required>
+                    </div>
 
-        <label>Telefone secundário:</label>
-        <input type="text" name="telefone">
+                    <div class="campo">
+                        <label>Telefone secundário <span class="opcional">(opcional)</span></label>
+                        <input type="text" name="telefone" placeholder="(11) 99999-9999">
+                    </div>
 
-        <label>E-mail principal:</label>
-        <input type="email" name="email" required>
+                    <div class="campo">
+                        <label>E-mail principal <span class="obrigatorio">*</span></label>
+                        <input type="email" name="email" required placeholder="exemplo@email.com">
+                    </div>
 
-        <label>E-mail alternativo:</label>
-        <input type="email" name="emailsec">
+                    <div class="campo">
+                        <label>E-mail alternativo <span class="opcional">(opcional)</span></label>
+                        <input type="email" name="emailsec" placeholder="outro@email.com">
+                    </div>
 
-        <h3>Endereço</h3>
+                </div>
 
-        <label>CEP:</label>
-        <input type="text" name="cep" id="cep">
+                <div class="secao">Endereço</div>
+                <div class="form-grid">
 
-        <label>Rua:</label>
-        <input type="text" name="logradouro" id="logradouro">
+                    <div class="campo">
+                        <label>CEP <span class="obrigatorio">*</span></label>
+                        <input type="text" name="cep" id="cep" placeholder="00000-000">
+                    </div>
 
-        <label>Número:</label>
-        <input type="text" name="numero">
+                    <div class="campo">
+                        <label>Rua</label>
+                        <input type="text" name="logradouro" id="logradouro">
+                    </div>
 
-        <label>Complemento:</label>
-        <input type="text" name="complemento">
+                    <div class="campo pequeno">
+                        <label>Número</label>
+                        <input type="text" name="numero">
+                    </div>
 
-        <label>Bairro:</label>
-        <input type="text" name="bairro" id="bairro">
+                    <div class="campo">
+                        <label>Complemento</label>
+                        <input type="text" name="complemento">
+                    </div>
 
-        <label>Cidade:</label>
-        <input type="text" name="cidade" id="cidade">
+                    <div class="campo">
+                        <label>Bairro</label>
+                        <input type="text" name="bairro" id="bairro">
+                    </div>
 
-        <label>Estado:</label>
-        <input type="text" name="estado" id="estado">
+                    <div class="campo">
+                        <label>Cidade</label>
+                        <input type="text" name="cidade" id="cidade">
+                    </div>
 
-        <label>País:</label>
-        <input type="text" name="pais" id="pais">
+                    <div class="campo pequeno">
+                        <label>Estado</label>
+                        <input type="text" name="estado" id="estado">
+                    </div>
 
-        <input type="submit" value="Salvar Cliente">
-    </form>
+                    <div class="campo">
+                        <label>País</label>
+                        <input type="text" name="pais" id="pais">
+                    </div>
 
+                </div>
 
+                <button type="submit" class="btn-primary">Salvar Funcionário</button>
+            </form>
+        </section>
 
-    <form method="post" action="deletar.php">
-        <h2>Excluir Cliente</h2>
+        <!-- Aba: Atualizar -->
+        <section class="tab-panel" id="tab-atualizar">
+            <form method="post" action="atualizar.php">
+                <h2 class="form-title">Atualizar Funcionário</h2>
+                <p class="form-dica">Informe o CPF e preencha apenas os campos que deseja alterar.</p>
 
-        <label>CPF / CNPJ do Cliente:</label>
-        <input type="text" name="cpf" required>
+                <div class="form-grid">
+                    <div class="campo cheio">
+                        <label>CPF <span class="obrigatorio">*</span></label>
+                        <input type="text" name="cpf" placeholder="123.456.789-01" required>
+                    </div>
+                    <div class="campo cheio">
+                        <label>Novo nome</label>
+                        <input type="text" name="nome" placeholder="Deixe em branco para não alterar">
+                    </div>
+                    <div class="campo">
+                        <label>Novo e-mail</label>
+                        <input type="email" name="email" placeholder="novo@email.com">
+                    </div>
+                    <div class="campo">
+                        <label>Novo telefone</label>
+                        <input type="text" name="telefone" placeholder="(11) 99999-9999">
+                    </div>
+                </div>
 
-        <input type="submit" value="Excluir">
-    </form>
+                <button type="submit" class="btn-primary">Atualizar Funcionário</button>
+            </form>
+        </section>
 
+        <!-- Aba: Excluir -->
+        <section class="tab-panel" id="tab-excluir">
+            <form method="post" action="deletar.php">
+                <h2 class="form-title">Excluir Funcionário</h2>
+                <p class="form-dica aviso">⚠️ Esta ação é permanente e não pode ser desfeita.</p>
 
+                <div class="form-grid">
+                    <div class="campo cheio">
+                        <label>CPF do funcionário <span class="obrigatorio">*</span></label>
+                        <input type="text" name="cpf" placeholder="123.456.789-01" required>
+                    </div>
+                </div>
 
-    <form method="post" action="atualizar.php">
-        <h2>Atualizar Cliente</h2>
+                <button type="submit" class="btn-danger">Excluir Funcionário</button>
+            </form>
+        </section>
 
-        <label>CPF / CNPJ do Cliente:</label>
-        <input type="text" name="cpf" required>
+        <!-- Aba: Buscar -->
+        <section class="tab-panel" id="tab-buscar">
+            <div class="busca-wrapper">
+                <h2 class="form-title">Buscar Funcionário</h2>
+                <p class="form-dica">A busca acontece em tempo real conforme você digita.</p>
 
-        <label>Novo nome:</label>
-        <input type="text" name="nome">
+                <div class="campo-busca">
+                    <span class="icone-busca">⌕</span>
+                    <input type="text" id="search" placeholder="Digite o nome do funcionário..." oninput="buscarFuncionario()">
+                </div>
 
-        <label>Novo e-mail:</label>
-        <input type="email" name="email">
+                <div id="resultado" class="resultado-vazio">
+                    <span>Digite um nome para buscar...</span>
+                </div>
+            </div>
+        </section>
 
-        <label>Novo telefone:</label>
-        <input type="text" name="telefone">
+        <!-- Aba: Listar -->
+        <section class="tab-panel" id="tab-listar">
+            <form method="post" action="listar.php">
+                <h2 class="form-title">Listar Funcionários</h2>
+                <p class="form-dica">Exibe todos os funcionários cadastrados no banco de dados.</p>
+                <button type="submit" class="btn-primary">Ver Lista Completa</button>
+            </form>
+        </section>
 
-        <input type="submit" value="Atualizar">
-    </form>
+    </main>
 
-
-    <form method="post" action="listar.php">
-        <h2>Listar Clientes</h2>
-        <input type="submit" value="Ver Lista Completa">
-    </form>
-
-
-
-    <h2>Buscar Cliente por Nome</h2>
-
-    <input type="text" id="search" placeholder="Digite o nome do cliente..." onkeyup="buscarClientes()">
-    <br><br>
-
-    <div id="resultado">Digite um nome para buscar...</div>
-
-       <script>
-        document.getElementById('cep').addEventListener('blur', function () {
-            let cep = this.value.replace(/\D/g, '');
-
-            if (cep.length === 8) {
-                fetch("https://viacep.com.br/ws/" + cep + "/json/")
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.erro) {
-                            document.getElementById('logradouro').value = data.logradouro;
-                            document.getElementById('bairro').value = data.bairro;
-                            document.getElementById('cidade').value = data.localidade;
-                            document.getElementById('estado').value = data.uf;
-                            document.getElementById('pais').value = "Brasil";
-                        }
-                    });
-            }
-        });
-    </script>
-
+    <footer class="rodape">
+        <p>Gerenciamento de Funcionários &mdash; Itaú Unibanco</p>
+    </footer>
 
     <script>
-        function buscarClientes() {
-            const valor = document.getElementById("search").value.trim();
+        // Troca de abas
+        const botoes = document.querySelectorAll('.tab-btn');
+        const paineis = document.querySelectorAll('.tab-panel');
+
+        botoes.forEach(btn => {
+            btn.addEventListener('click', () => {
+                botoes.forEach(b => b.classList.remove('active'));
+                paineis.forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Busca de funcionários via AJAX
+        function buscarFuncionario() {
+            const valor = document.getElementById('search').value.trim();
+            const resultado = document.getElementById('resultado');
+
+            if (valor === '') {
+                resultado.innerHTML = '<span>Digite um nome para buscar...</span>';
+                resultado.className = 'resultado-vazio';
+                return;
+            }
 
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "search.php?search=" + encodeURIComponent(valor), true);
+            xhr.open('GET', 'search.php?search=' + encodeURIComponent(valor), true);
 
             xhr.onload = function () {
                 if (this.status === 200) {
                     try {
-                        const clientes = JSON.parse(this.responseText);
-                        let output = "<h3>Resultados da busca</h3><ul>";
+                        const lista = JSON.parse(this.responseText);
+                        resultado.className = 'resultado-lista';
 
-                        if (clientes.length === 0) {
-                            output += "<li>Nenhum cliente encontrado.</li>";
-                        } else {
-                            clientes.forEach(c => {
-                                output += `
-                                    <li>
-                                        <strong>${c.nome}</strong><br>
-                                        CPF: ${c.cpf}<br>
-                                        E-mail: ${c.email}<br>
-                                        Cidade: ${c.cidade}
-                                    </li>
-                                `;
-                            });
+                        if (lista.length === 0) {
+                            resultado.innerHTML = '<p style="text-align:center;color:#999;padding:20px 0;">Nenhum funcionário encontrado.</p>';
+                            return;
                         }
 
-                        output += "</ul>";
-                        document.getElementById("resultado").innerHTML = output;
+                        let html = '';
+                        lista.forEach(f => {
+                            html += `
+                                <div class="card-funcionario">
+                                    <div class="card-nome">${f.nome}</div>
+                                    <div class="card-info">
+                                        <span><strong>CPF:</strong> ${f.cpf}</span>
+                                        <span><strong>E-mail:</strong> ${f.email}</span>
+                                        <span><strong>Cidade:</strong> ${f.cidade}</span>
+                                    </div>
+                                </div>`;
+                        });
+                        resultado.innerHTML = html;
 
                     } catch (e) {
-                        document.getElementById("resultado").innerHTML = "Erro ao processar resposta!";
+                        resultado.innerHTML = '<p>Erro ao processar a resposta.</p>';
                     }
                 }
             };
 
             xhr.send();
         }
+
+        // Preenchimento automático do endereço pelo CEP
+        document.getElementById('cep').addEventListener('blur', function () {
+            let cep = this.value.replace(/\D/g, '');
+
+            if (cep.length === 8) {
+                fetch('https://viacep.com.br/ws/' + cep + '/json/')
+                    .then(r => r.json())
+                    .then(dados => {
+                        if (!dados.erro) {
+                            document.getElementById('logradouro').value = dados.logradouro;
+                            document.getElementById('bairro').value = dados.bairro;
+                            document.getElementById('cidade').value = dados.localidade;
+                            document.getElementById('estado').value = dados.uf;
+                            document.getElementById('pais').value = 'Brasil';
+                        }
+                    });
+            }
+        });
     </script>
 
 </body>

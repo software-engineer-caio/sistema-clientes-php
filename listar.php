@@ -1,36 +1,68 @@
 <?php
 include 'conexao.php';
 
+// Busca todos os funcionários em ordem alfabética
 $sql = "SELECT * FROM clientes ORDER BY nome ASC";
 $resultado = mysqli_query($conexao, $sql);
-
-echo "<h2>Lista de Clientes</h2>";
-
-if (mysqli_num_rows($resultado) > 0) {
-    echo "<table border='1' cellpadding='8'>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Email</th>
-                <th>Cidade</th>
-            </tr>";
-
-    while($linha = mysqli_fetch_assoc($resultado)) {
-        echo "<tr>
-                <td>".$linha['nome']."</td>
-                <td>".$linha['cpf']."</td>
-                <td>".$linha['email']."</td>
-                <td>".$linha['cidade']."</td>
-              </tr>";
-    }
-
-    echo "</table>";
-
-} else {
-    echo "Nenhum cliente encontrado.";
-}
-
-mysqli_close($conexao);
-
-echo '<br><br><button onclick="window.history.back()">Voltar</button>';
+$total = mysqli_num_rows($resultado);
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Funcionários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+
+        <div class="lista-header">
+            <h2 class="lista-titulo">Lista de Funcionários</h2>
+            <span class="lista-total"><?= $total ?> funcionário(s)</span>
+        </div>
+
+        <?php if ($total > 0): ?>
+            <div class="tabela-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>E-mail</th>
+                            <th>Cidade</th>
+                            <th>Cargo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($linha = mysqli_fetch_assoc($resultado)): ?>
+                        <tr>
+                            <td><?= $linha['nome'] ?></td>
+                            <td class="mono"><?= $linha['cpf'] ?></td>
+                            <td><?= $linha['email'] ?></td>
+                            <td><?= $linha['cidade'] ?></td>
+                            <td><?= ucwords(str_replace('_', ' ', $linha['profissao'])) ?></td>
+                        </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        <?php else: ?>
+            <p style="text-align:center; color:#666; padding:40px 0;">Nenhum funcionário cadastrado.</p>
+        <?php endif; ?>
+
+        <?php mysqli_close($conexao); ?>
+
+        <div class="lista-acoes">
+            <button onclick="window.history.back()" class="btn-secundario">← Voltar</button>
+        </div>
+
+    </main>
+
+    <footer class="rodape">
+        <p>Gerenciamento de Funcionários &mdash; Itaú Unibanco</p>
+    </footer>
+</body>
+</html>
