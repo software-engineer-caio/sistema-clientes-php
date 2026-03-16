@@ -5,11 +5,11 @@ Este é um sistema web simples para gerenciamento de clientes.
 
 ## Funcionalidades
 
-- Cadastrar clientes
-- Listar clientes
-- Buscar clientes por nome
-- Atualizar dados de clientes
-- Excluir clientes
+- Cadastrar funcionarios
+- Listar funcionarios
+- Buscar funcionarios por nome
+- Atualizar dados de funcionarios
+- Excluir funcionarios
 
 ## Tecnologias utilizadas
 
